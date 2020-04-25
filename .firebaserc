@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "rizalkitchen-29d05": {
+      "hosting": {
+        "rizalkitchen": [
+          "rizalkitchen-29d05"
+        ]
+      }
+    }
+  }
+}

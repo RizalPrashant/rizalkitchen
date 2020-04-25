@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {AngularFireModule} from 'angularfire2';
-// import {AngularFireAuthModule} from 'angularfire2/auth';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
 import { HomeComponent } from './home/home.component';
@@ -30,6 +30,7 @@ import {NgbModule} from'@ng-bootstrap/ng-bootstrap'
     CheckOutComponent,
     OrderSuccessComponent,
     MyOrdersComponent,
+    LoginComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
     ProductsComponent
@@ -39,6 +40,7 @@ import {NgbModule} from'@ng-bootstrap/ng-bootstrap'
     AppRoutingModule,
     NgbModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
     RouterModule.forRoot([
       {path:'', component: HomeComponent},
       {path:'products', component: ProductsComponent},

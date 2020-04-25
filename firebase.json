@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "rizalkitchen",
+      "public": "dist/rizalkitchen",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}
