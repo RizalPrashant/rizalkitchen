@@ -19,6 +19,7 @@ import {RouterModule} from '@angular/router';
 import { ProductsComponent } from './products/products.component';
 import { LoginComponent } from './login/login.component';
 import {NgbModule} from'@ng-bootstrap/ng-bootstrap'
+import { AuthGuardService as AuthGuard, AuthGuardService } from './auth-guard.service';
 
 //todo ipmport angularfire2database
 
@@ -55,7 +56,7 @@ import {NgbModule} from'@ng-bootstrap/ng-bootstrap'
       {path:'my/orders', component: MyOrdersComponent},
     ]),
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
