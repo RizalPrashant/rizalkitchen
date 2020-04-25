@@ -15,9 +15,9 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import {RouterModule} from '@angular/router';
-import { componentFactoryName } from '@angular/compiler';
 import { ProductsComponent } from './products/products.component';
 import { LoginComponent } from './login/login.component';
+import {NgbModule} from'@ng-bootstrap/ng-bootstrap'
 
 //todo ipmport angularfire2database
 
@@ -37,6 +37,7 @@ import { LoginComponent } from './login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgbModule,
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot([
       {path:'', component: HomeComponent},
@@ -47,8 +48,8 @@ import { LoginComponent } from './login/login.component';
       {path:'login', component: LoginComponent},
       {path:'admin/products', component: AdminProductsComponent},
       {path:'admin/orders', component: AdminOrdersComponent},
-
-    ])
+      {path:'my/orders', component: MyOrdersComponent},
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]
