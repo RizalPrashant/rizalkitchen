@@ -17,5 +17,5 @@ export class LoginComponent implements OnInit {
   login(){
     this.afAuth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
-
+  
 }
