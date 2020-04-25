@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase';
 import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-
+    this.afAuth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
 
 }
