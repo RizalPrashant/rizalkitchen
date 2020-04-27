@@ -24,6 +24,10 @@ import { AuthGuardService as AuthGuard, AuthGuardService } from './auth-guard.se
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { AdminAuthGuardService } from './admin-auth-guard.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CategoryService } from './category.service';
+import {FormsModule} from '@angular/forms'
+import { ProductService } from './product.service';
 
 //todo ipmport angularfire2database
 
@@ -39,10 +43,12 @@ import { AdminAuthGuardService } from './admin-auth-guard.service';
     LoginComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     NgbModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -61,9 +67,11 @@ import { AdminAuthGuardService } from './admin-auth-guard.service';
 
       {path:'admin/orders', component: AdminOrdersComponent,canActivate: [AuthGuard, AdminAuthGuardService]},
       {path:'admin/products', component: AdminProductsComponent,canActivate: [AuthGuard, AdminAuthGuardService]},
+      {path:'admin/products/new', component: ProductFormComponent,canActivate: [AuthGuard, AdminAuthGuardService]},
+
     ]),
   ],
-  providers: [AuthGuardService, AuthService, UserService, AdminAuthGuardService],
+  providers: [AuthGuardService, AuthService, UserService, AdminAuthGuardService, CategoryService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
