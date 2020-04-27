@@ -23,6 +23,7 @@ import {NgbModule} from'@ng-bootstrap/ng-bootstrap'
 import { AuthGuardService as AuthGuard, AuthGuardService } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
+import { AdminAuthGuardService } from './admin-auth-guard.service';
 
 //todo ipmport angularfire2database
 
@@ -56,13 +57,13 @@ import { UserService } from './user.service';
 
       {path:'check-out', component: CheckOutComponent, canActivate: [AuthGuard]},
       {path:'order-success', component: OrderSuccessComponent,canActivate: [AuthGuard]},
-      {path:'admin/products', component: AdminProductsComponent,canActivate: [AuthGuard]},
-
-      {path:'admin/orders', component: AdminOrdersComponent,canActivate: [AuthGuard]},
       {path:'my/orders', component: MyOrdersComponent,canActivate: [AuthGuard]},
+
+      {path:'admin/orders', component: AdminOrdersComponent,canActivate: [AuthGuard, AdminAuthGuardService]},
+      {path:'admin/products', component: AdminProductsComponent,canActivate: [AuthGuard, AdminAuthGuardService]},
     ]),
   ],
-  providers: [AuthGuardService, AuthService, UserService],
+  providers: [AuthGuardService, AuthService, UserService, AdminAuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
