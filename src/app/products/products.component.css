@@ -1,0 +1,9 @@
+.custom-change-color-head{
+    background-color: orange;
+    color: teal;
+    font-family: fantasy;
+}
+.custom-change-color {
+    font-style: italic;
+    background-color : orange;
+}
