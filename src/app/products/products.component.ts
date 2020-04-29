@@ -3,6 +3,7 @@ import { ProductService } from '../product.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CategoryService } from '../category.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -12,8 +13,13 @@ import { CategoryService } from '../category.service';
 export class ProductsComponent {
   product$;
   categories$;
+  category: string;
 
-  constructor(private productService: ProductService, private categoryService: CategoryService) { 
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService, 
+    private route: ActivatedRoute) {
+
     this.product$ = this.productService.getAll().snapshotChanges()
     .pipe(map(items => {
       return items.map(a => {
@@ -24,5 +30,19 @@ export class ProductsComponent {
     }))
 
     this.categories$ = categoryService.getCategories();
+    
+    route.queryParamMap.subscribe(q => {
+      this.category = q.get('category');
+    })
   }
+
+  // filterProduct(categoryClicked, categoryProduct){
+  //   if(categoryClicked == null){
+  //     return false;
+  //   }
+  //   if(categoryClicked === categoryProduct){
+  //     return true;
+  //   }
+  //   return false;
+  // }
 }

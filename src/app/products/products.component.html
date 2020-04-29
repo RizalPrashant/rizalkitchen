@@ -6,6 +6,7 @@
             routerLink='/'
             [queryParams] = "{category : c.key}"
             class="list-group-item  custom-change-color"
+            [class.active] = "category === c.key"
             >
                 {{c.val.name}}
             </a>
@@ -15,7 +16,7 @@
         <div class="col">
             <div class="row">
                 <ng-container *ngFor="let p of product$ | async; let i = index" >
-                    <div class="col">
+                    <div class="col" *ngIf="category === p.val.category || category == null">
                         <div class="card" style="width: 15rem;">
                             <img [src]="p.val.imageUrl" class="card-img-top">
                             <div class="card-body">
