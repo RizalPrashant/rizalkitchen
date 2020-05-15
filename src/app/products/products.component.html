@@ -17,12 +17,33 @@
             <div class="row">
                 <ng-container *ngFor="let p of product$ | async; let i = index" >
                     <div class="col" *ngIf="category === p.val.category || category == null">
-                        <div class="card" style="width: 15rem;">
-                            <img [src]="p.val.imageUrl" class="card-img-top">
-                            <div class="card-body">
+                        <div  class="card" style="width: 15rem;">
+                            <img (click)="addToCart(p)" [src]="p.val.imageUrl" class="card-img-top" alt="Add to Cart">
+                            <div (click)="addToCart(p)" class="card-body">
                                 <h5 class="card-title">{{p.val.title}}</h5>
                                 <p class="card-text">{{p.val.price | currency:'USD':true}}</p>
-                                <a class="add-cart" href="#" class="btn btn-success">Add to Cart</a>
+                                
+                            </div>
+                                <div *ngFor="let s of shoppingCart$ | async">
+                                        <div *ngIf="s.product.title === p.val.title && s.quantity > 0">
+                                            <div *ngIf = "showActions " class="card-footer">
+                                            <div class="row no-gutters">
+                                                <div class="col-2">
+                                                    <button (click) = "removeFromCart(p)" class="btn btn-secondary btn-block bg-primary rounded-0">
+                                                        -
+                                                    </button>
+                                                </div>
+                                                <div class = "col text-center border border-dark bg-light">
+                                                    {{s.quantity}} in cart
+                                                </div>
+                                                <div class="col-2">
+                                                    <button (click)="addToCart(p)" class="btn btn-secondary btn-block bg-success rounded-0">
+                                                        +
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
                             </div>
                         </div>
                     </div>

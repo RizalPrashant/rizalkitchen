@@ -20,10 +20,16 @@ export class ProductFormComponent implements OnInit {
     this.categories$ = categoryService.getCategories();
     let id = this.route.snapshot.paramMap.get('id');
     console.log("ID is " + id);
-    if(id) this.productService.get(id).valueChanges().take(1).subscribe(p => {
-      this.product = p;
-      console.log("Product inside if is " + p);
-    });
+    if(id) {
+        this.productService.get(id).valueChanges().take(1).subscribe(p => {
+        this.product = p;
+        console.log("Product inside if is " + p);
+      });
+    } else{
+      this.product = {
+        title: "",
+      }
+    }
     console.log(this.categories$)
     console.log(this.product);
   }

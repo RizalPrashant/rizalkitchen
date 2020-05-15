@@ -1,3 +1,13 @@
+h5:hover{
+    cursor: pointer;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+img{
+    cursor: pointer
+}
+
 .custom-change-color-head{
     background-color: orange;
     color: teal;

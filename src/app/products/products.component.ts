@@ -1,25 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ProductService } from '../product.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CategoryService } from '../category.service';
 import { ActivatedRoute } from '@angular/router';
+import { ShoppingCartService } from '../shopping-cart.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit, OnDestroy{
   product$;
   categories$;
   category: string;
+  subscription: Subscription
+  shoppingCart$;
+  @Input('show-actions') showActions = true;
 
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService, 
-    private route: ActivatedRoute) {
-
+    private route: ActivatedRoute,
+    private cartService : ShoppingCartService) {
+    
     this.product$ = this.productService.getAll().snapshotChanges()
     .pipe(map(items => {
       return items.map(a => {
@@ -36,13 +41,31 @@ export class ProductsComponent {
     })
   }
 
-  // filterProduct(categoryClicked, categoryProduct){
-  //   if(categoryClicked == null){
-  //     return false;
-  //   }
-  //   if(categoryClicked === categoryProduct){
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  ngOnInit(){
+
+    this.shoppingCart$ = this.cartService.getCart().valueChanges();
+    
+    console.log(this.shoppingCart$);
+  }
+
+
+  addToCart(product){
+    this.cartService.addToCart(product);
+  }
+
+  removeFromCart(product){
+    this.cartService.removeFromCart(product);
+  }
+
+
+  getQuantity(){
+    
+    // if(!this.shoppingCart$) return 0;
+    // let item = this.shoppingCart$;
+    // return item? item.quantity : 0;
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe;
+  }
 }
