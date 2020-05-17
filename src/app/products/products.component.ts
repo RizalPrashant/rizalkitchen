@@ -11,7 +11,7 @@ import { ShoppingCartService } from '../shopping-cart.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit, OnDestroy{
+export class ProductsComponent implements OnInit{
   product$;
   categories$;
   category: string;
@@ -55,17 +55,5 @@ export class ProductsComponent implements OnInit, OnDestroy{
 
   removeFromCart(product){
     this.cartService.removeFromCart(product);
-  }
-
-
-  getQuantity(){
-    
-    // if(!this.shoppingCart$) return 0;
-    // let item = this.shoppingCart$;
-    // return item? item.quantity : 0;
-  }
-
-  ngOnDestroy(){
-    this.subscription.unsubscribe;
   }
 }

@@ -11,9 +11,10 @@ import { ProductsComponent } from './products/products.component';
   providedIn: 'root'
 })
 export class ShoppingCartService {
-  quantityItem: number
+  quantityItem: number = Number(localStorage.getItem('quantity'));
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) {
+   }
 
   create(){
     console.log("Went in create")
@@ -27,7 +28,6 @@ export class ShoppingCartService {
   }
 
   private async getOrCreateCartId(){
-
     let cartId = localStorage.getItem('cartId');
     if (cartId) {
       return cartId;
@@ -39,6 +39,7 @@ export class ShoppingCartService {
   }
 
   async addToCart(product: Product){
+    this.quantityItem++;
     let cartId = await this.getOrCreateCartId();
     let item$ = this.db.object('/shopping-carts/' + cartId + '/items/' + product.key);
     item$.snapshotChanges().pipe(take(1)).subscribe(item => {
@@ -48,13 +49,14 @@ export class ShoppingCartService {
   }
 
   async removeFromCart(product: Product){
+    this.quantityItem--;
     let cartId = await this.getOrCreateCartId();
     let item$ = this.db.object('/shopping-carts/' + cartId + '/items/' + product.key);
     item$.snapshotChanges().pipe(take(1)).subscribe(item => {
-    item$.update({product: product.val, quantity: (item.payload.exportVal().quantity) - 1});
-    if(item.payload.exportVal().quantity == 1) {
-      item$.remove();
-    }
+      item$.update({product: product.val, quantity: (item.payload.exportVal().quantity) - 1});
+      if(item.payload.exportVal().quantity == 1) {
+        item$.remove();
+      }
     })
   }
 }
