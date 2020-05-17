@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import 'rxjs/add/operator/take';
 import { Product } from './models/product';
@@ -10,7 +10,7 @@ import { ProductsComponent } from './products/products.component';
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingCartService {
+export class ShoppingCartService{
   quantityItem: number = Number(localStorage.getItem('quantity'));
 
   constructor(private db: AngularFireDatabase) {
@@ -58,5 +58,16 @@ export class ShoppingCartService {
         item$.remove();
       }
     })
+  }
+
+  async removeCart(){
+    // let cartId = await this.getOrCreateCartId();
+    let cartId = localStorage.getItem('cartId');
+    let item$ = this.db.object('/shopping-carts/' + cartId);
+    item$.snapshotChanges().pipe(take(1)).subscribe(item => {
+      item$.remove();
+    }
+    )
+    this.quantityItem = 0;
   }
 }

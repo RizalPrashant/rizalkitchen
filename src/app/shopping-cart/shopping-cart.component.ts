@@ -9,6 +9,7 @@ import { ProductService } from '../product.service';
 })
 export class ShoppingCartComponent implements OnInit {
   shoppingCart$;
+  price: number;
 
   constructor(private cartService: ShoppingCartService) { }
 
@@ -24,4 +25,7 @@ export class ShoppingCartComponent implements OnInit {
     return localStorage.getItem('quantity');
   }
 
+  clearCart(){
+    this.cartService.removeCart();
+  }
 }
